@@ -8,7 +8,8 @@ public interface ICadenaAdn {
 	public int validacionHorizontal(String dna[]);
 	public int validacionVertical(String dna[]);
 	public int validacionDiagonalS(String dna[]);
-	public boolean isMutant(String dna[]);
+	public int validacionDiagonalD(String dna[]);
+	boolean isMutant(String dna[]);
 	
 
 }

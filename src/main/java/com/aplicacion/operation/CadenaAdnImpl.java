@@ -161,6 +161,62 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return secuenciaCount;
 	}
 	
+	public int validacionDiagonalD(String dna[]) {
+        char dnaMatriz[][] = new char[dna.length][dna.length];
+        int tamano = dna.length;
+        int secuenciaD = 0;
+        
+        for (int i = 0; i < tamano; i++) {
+            dnaMatriz[i] = dna[i].toCharArray();
+        } 
+        
+        //VALIDACION PARTE 1 MATRIZ DERECHA A IZQUIERDA SUPERIOR
+        for(int f= (tamano-1); f >= 0; f--){
+            for (int i = 0; i < tamano; i++) {
+                boolean validaElemento = false;
+                
+                for (int k = 0; k < CANTIDAD; k++) {
+
+                    if(( (i+k) < tamano ) && 
+                          ((f-i-k) >= 0) &&
+                         ( dnaMatriz[i][f-i] == dnaMatriz[i+k][f-i-k] )){
+                        validaElemento = true;
+                    }else{
+                        validaElemento = false;
+                        break;
+                    }
+                }
+                if(validaElemento == true){
+                    secuenciaCount++;
+                    break;
+                }
+            }
+        }   
+        
+        //VALIDACION PARTE 2 MATRIZ DERECHA A IZQUIERDA INFERIOR
+        for(int i = 1; i < tamano; i++){
+            for (int f= (tamano-1); f >= 0; f--) {
+                boolean validaElemento = false;
+                
+                for (int k = 0; k < CANTIDAD; k++) {
+                    if( (i+k+((tamano-1)-f)<tamano)&& 
+                         ( dnaMatriz[i+(tamano-1)-f][f] == dnaMatriz[i+k+((tamano-1)-f)][f-k] )){
+                        validaElemento = true;
+                    }else{
+                        validaElemento = false;
+                        break;
+                    }
+                }
+                if(validaElemento == true){
+                    secuenciaCount++;
+                    break;
+                }
+            }
+        }   
+        
+        return secuenciaD;
+     }
+	
 	public boolean isMutant(String dna[]){
 		
 		verMatriz(dna);
