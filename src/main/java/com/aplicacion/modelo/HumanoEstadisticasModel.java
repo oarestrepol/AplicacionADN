@@ -1,10 +1,17 @@
 package com.aplicacion.modelo;
 
+//Esta clase represnta un modelo de estadisticas
+
 public class HumanoEstadisticasModel {
 	
-	 long count_mutant_dna;
-	 long count_human_dna; 
-	 double ratio;
+	// Esta variable almacena la cantidad de mutantes
+	 private long count_mutant_dna;
+	 
+	 //Esta variable almacena la cantidad de cadenas adn
+	 private long count_human_dna; 
+	 
+	 //Esta variable almacena el porcentaje entre mutante/total cadenas adn
+	 private double ratio;
 	 
 	public long getCount_mutant_dna() {
 		return count_mutant_dna;

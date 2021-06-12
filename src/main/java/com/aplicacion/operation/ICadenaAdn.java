@@ -1,5 +1,6 @@
 package com.aplicacion.operation;
 
+//Esta interface tiene las operaciones a realizar con la cadena ADN
 public interface ICadenaAdn {
 	
 	public static final int CANTIDAD = 4;

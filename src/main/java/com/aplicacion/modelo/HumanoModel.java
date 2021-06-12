@@ -7,17 +7,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Omar
+ * Esta clase representa una entidad de la tabla Humano 
+ */
 @Entity
 @Table(name = "Humano")
 public class HumanoModel {
 	
+	//Llave primaria 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
 	private Long id;
 	
+	//Cadena adn
 	private String cadenaAdn;
 	
+	//Es mutante o no
 	private Integer esMutante;
 	
 	public Long getId() {

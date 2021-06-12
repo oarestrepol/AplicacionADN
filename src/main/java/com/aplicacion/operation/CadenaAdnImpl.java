@@ -2,19 +2,31 @@ package com.aplicacion.operation;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author Omar
+ * 
+ * Esta clase implementa una interfaz y esta clase realiza la validacion de una cadena adn
+ * para saber si esa cadena es de mutante o no, teniendo en cuenta que se tiene un arreglo
+ * de strings y se deben transformar en una matriz
+ * 
+ */
+
 @Component
 public class CadenaAdnImpl implements ICadenaAdn{
 
+	//Variable que lleva el conteo de las secuencias de ADN
 	public static int secuenciaCount = 0;
 	
+	//Este metodo valida si el array de string puede ser una matriz NxN 
 	@Override
 	public boolean validarArray(String[] array) {
 		boolean salida = true;
 
         if (array != null) {
-            if (array.length >= 4) {
+            if (array.length >= CANTIDAD) {
                 for (int i = 0; i < array.length; i++) {
-                    if (array[i].length() >= 4) {
+                    if (array[i].length() >= CANTIDAD) {
                         if (array.length == array[i].length()) {
                             salida = true;
                         } else {
@@ -37,6 +49,7 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return salida;
 	}
 
+	//Este metodo imprime el array de string como matriz
 	@Override
 	public void verMatriz(String[] dna) {
 		// TODO Auto-generated method stub
@@ -55,6 +68,8 @@ public class CadenaAdnImpl implements ICadenaAdn{
 		
 	}
 
+	//Este metodo realiza la validacion horizontal de la matriz buscando una secuencia
+	//e incrementa la variable secuenciaCount en caso de encontrar una secuencia
 	@Override
 	public int validacionHorizontal(String[] dna) {
 		char dnaMatriz[][] = new char[dna.length][dna.length];
@@ -84,6 +99,8 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return secuenciaCount;
 	}
 
+	//Este metodo realiza la validacion vertical de la matriz buscando una secuencia
+	//e incrementa la variable secuenciaCount en caso de encontrar una secuencia
 	@Override
 	public int validacionVertical(String[] dna) {
 		char dnaMatriz[][] = new char[dna.length][dna.length];
@@ -113,6 +130,10 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return secuenciaCount;
 	}
 
+
+	//Este metodo realiza la validacion diagonal de la matriz buscando una secuencia
+	//e incrementa la variable secuenciaCount en caso de encontrar una secuencia
+
 	@Override
 	public int validacionDiagonalS(String[] dna) {
 		char dnaMatriz[][] = new char[dna.length][dna.length];
@@ -121,6 +142,8 @@ public class CadenaAdnImpl implements ICadenaAdn{
         for (int i = 0; i < dna.length; i++) {
             dnaMatriz[i] = dna[i].toCharArray();
         } 
+        
+    	//el recorrido lo realiza desde la parte superior y de derecha a izquierda iniciando en la posicion 0,0
         //VALIDACION PARTE SUPREIOR MATRIZ
         for( int f=0 ; f < ( tamano - (CANTIDAD-1)); f++){
             for(int i=0; i< tamano; i++){
@@ -139,7 +162,7 @@ public class CadenaAdnImpl implements ICadenaAdn{
                 }
             }
         }
-        
+    	//El recorrido lo realiza desde la parte superior derecha hacia abajo iniciando en la posicion 1,0
         //VALIDACION PARTE INFERIOR MATRIZ
         for( int f=1 ; f < ( tamano - (CANTIDAD-1)); f++){
             for(int i=0; i< tamano; i++){
@@ -161,6 +184,9 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return secuenciaCount;
 	}
 	
+	//Esta metodo realiza la validacion diagonal de la matriz buscando una secuencia
+	//e incrementa la variable secuenciaCount en caso de encontrar una secuencia
+	
 	public int validacionDiagonalD(String dna[]) {
         char dnaMatriz[][] = new char[dna.length][dna.length];
         int tamano = dna.length;
@@ -169,7 +195,8 @@ public class CadenaAdnImpl implements ICadenaAdn{
         for (int i = 0; i < tamano; i++) {
             dnaMatriz[i] = dna[i].toCharArray();
         } 
-        
+      
+        //El recorrido lo realiza desde la parte superior y de derecha a izquierda iniciando en la posicion 0,N-1
         //VALIDACION PARTE 1 MATRIZ DERECHA A IZQUIERDA SUPERIOR
         for(int f= (tamano-1); f >= 0; f--){
             for (int i = 0; i < tamano; i++) {
@@ -192,8 +219,9 @@ public class CadenaAdnImpl implements ICadenaAdn{
                 }
             }
         }   
-        
-        //VALIDACION PARTE 2 MATRIZ DERECHA A IZQUIERDA INFERIOR
+
+    	//El recorrido lo realiza desde la parte superior derecha hacia abajo iniciando en la posicion 0,N-1
+        //VALIDACION PARTE 2 MATRIZ IZQUIERDA HACIA ABAJO INFERIOR
         for(int i = 1; i < tamano; i++){
             for (int f= (tamano-1); f >= 0; f--) {
                 boolean validaElemento = false;
@@ -217,6 +245,7 @@ public class CadenaAdnImpl implements ICadenaAdn{
         return secuenciaD;
      }
 	
+	//Este método indica si la cadena adn es de un mutante o no
 	public boolean isMutant(String dna[]){
 		
 		verMatriz(dna);
@@ -225,6 +254,8 @@ public class CadenaAdnImpl implements ICadenaAdn{
             validacionHorizontal(dna);
             validacionVertical(dna);
             validacionDiagonalS(dna);   
+        }else {
+        	return false;
         }
 
         if( secuenciaCount > 1 ){
